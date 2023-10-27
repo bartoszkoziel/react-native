@@ -1,14 +1,24 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
+import User from "./User"
+
 export default function App(props) {
-
-    console.log("PROPS: ", props)
-
+    let temp = props.route.params.users
+    // let users = JSON.parse({ users: props.route.params.users })
+    let users = JSON.parse(temp)
+    console.log("PARSED USERS: ", users)
     return (
         <View style={styles.container}>
-            <FlatList></FlatList>
-            <Text>SCREEN 2 LIST, {props.route.params.users}</Text>
+            <FlatList
+                data={users.users}
+
+                renderItem={({ item, index }) => <User
+                    id={index}
+                    login={item.login}
+                />}
+
+            />
         </View>
     )
 }
@@ -17,7 +27,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffff',
-        alignItems: 'center',
+        alignItems: 'left',
         justifyContent: 'center',
     },
     input: {

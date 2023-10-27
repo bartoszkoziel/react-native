@@ -35,7 +35,7 @@ const server = http.createServer((req, res) => {
 
     if (req.url == "/api/users" && req.method == "GET") {
         res.writeHead(200, { 'Content-Type': "application/json" })
-        res.end(JSON.stringify(users))
+        res.end(JSON.stringify({ users: users }))
     }
 })
 

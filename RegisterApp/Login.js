@@ -18,11 +18,11 @@ export default function App(props) {
                 created: Date.now()
             })
         })
-        let users = await fetch('http://192.168.119.117:3000/api/users')
+        let users = await (await fetch('http://192.168.119.117:3000/api/users')).json()
 
         let temp = await response.text()
         if (temp == "REGISTER SUCCESSFUL") {
-            props.navigation.navigate("list", { users: users })
+            props.navigation.navigate("list", { users: JSON.stringify(users) })
         }
 
         setStatus(temp)
