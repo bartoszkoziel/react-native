@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 export default function User(props) {
+    let btnDetails = () => {
+        props.navigation.navigate("admin", props.obj)
+    }
+    let btnDelete = async () => {
+        let response = await fetch('http://192.168.119.117:3000/api/delete/' + props.id, {
+            method: "POST"
+        })
+
+        let json = await response.json()
+        console.log("RESONSE.JSON: ", json)
+        props.setUsers(json.users)
+    }
     return (
         <View style={styles.user}>
             <Image
@@ -10,7 +22,15 @@ export default function User(props) {
             />
 
             <Text>{props.id} {props.login}</Text>
-            <Text>{props.test}</Text>
+            {/* <Text>{props.obj}</Text> */}
+
+            <TouchableOpacity style={styles.button} onPress={btnDetails}>
+                <Text>DETAILS</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} onPress={btnDelete}>
+                <Text>DELETE</Text>
+            </TouchableOpacity>
         </View >
     )
 }
@@ -28,4 +48,9 @@ const styles = StyleSheet.create({
         width: 66,
         height: 58,
     },
+    button: {
+        margin: 5,
+        borderColor: 'green',
+        borderWidth: 1,
+    }
 })

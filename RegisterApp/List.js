@@ -4,20 +4,21 @@ import React, { useState, useEffect } from 'react';
 import User from "./User"
 
 export default function App(props) {
-    let temp = props.route.params.users
-    // let users = JSON.parse({ users: props.route.params.users })
-    let users = JSON.parse(temp)
+    let [users, setUsers] = useState(props.route.params.users)
     console.log("PARSED USERS: ", users)
+
     return (
         <View style={styles.container}>
             <FlatList
-                data={users.users}
+                data={users}
 
-                renderItem={({ item, index }) => <User
-                    id={index}
-                    login={item.login}
+                renderItem={({ item }) => <User
+                    obj={JSON.stringify(item)}
+                    id={item.id}
+                    login={item.body.login}
+                    navigation={props.navigation}
+                    setUsers={setUsers}
                 />}
-
             />
         </View>
     )

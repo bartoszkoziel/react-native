@@ -22,7 +22,7 @@ export default function App(props) {
 
         let temp = await response.text()
         if (temp == "REGISTER SUCCESSFUL") {
-            props.navigation.navigate("list", { users: JSON.stringify(users) })
+            props.navigation.navigate("list", users)
         }
 
         setStatus(temp)
