@@ -89,14 +89,14 @@ const MainPage = ({ closeApp }) => {
         return (
             <List.Item
                 key={index}
-                left={props => <List.Icon {...props} icon='longitude' />}
+                // left={props => <List.Icon {...props} icon='longitude' />}
                 right={props => (
                     <Switch
                         {...props}
                         value={item.selected} onValueChange={() => onValueChange(index)}
                     />)}
                 title={`Timestamp: ${item.timestamp}`}
-                description={`latitude: ${item.latitude}\nlongitude: ${item.longitude}`}
+                description={`lat: ${item.latitude}\nlon: ${item.longitude}`}
             />
         )
     }
@@ -106,7 +106,7 @@ const MainPage = ({ closeApp }) => {
             case 'pos':
                 return (
                     <>
-                        <Appbar.Header>
+                        <Appbar.Header style={{backgroundColor: '#b00b69'}} >
                             <Appbar.BackAction onPress={closeApp} />
                             <Appbar.Content title='Save position' />
                         </Appbar.Header>
@@ -115,7 +115,7 @@ const MainPage = ({ closeApp }) => {
                             <View style={styles.buttons}>
                                 <Button disabled={!isPermited} onPress={getLocation} mode='contained'>Get position</Button>
                                 <Button
-                                    onPress={deleteLocations} mode='contained' buttonColor={theme.colors.error}
+                                    onPress={deleteLocations} mode='contained' 
                                 >Delete all
                                 </Button>
                             </View>
@@ -123,11 +123,11 @@ const MainPage = ({ closeApp }) => {
                                 <Button
                                     disabled={selected.selLoc.length === 0}
                                     onPress={mapPage}
-                                    mode='contained-tonal'
+                                    mode='contained'
                                 >Go to a map
                                 </Button>
                                 <Switch
-                                    style={{ position: 'absolute', right: 25, top: 5 }}
+                                    // style={{ position: 'absolute', right: 25, top: 5 }}
                                     value={selected.areAllSel} onValueChange={() => {
                                         updateLocations(locations.map((e) => {
                                             e.selected = !selected.areAllSel
@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
     buttons: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
         padding: 10
     },
 

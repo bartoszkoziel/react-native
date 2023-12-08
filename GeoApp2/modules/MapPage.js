@@ -4,7 +4,7 @@ import { Appbar } from 'react-native-paper'
 const MapPage = ({ selectedLocations, goBack }) => {
     return (
         <>
-            <Appbar.Header>
+            <Appbar.Header style={{backgroundColor: '#b00b69'}} >
                 <Appbar.BackAction onPress={goBack} />
                 <Appbar.Content title='Locations on map' />
             </Appbar.Header>
