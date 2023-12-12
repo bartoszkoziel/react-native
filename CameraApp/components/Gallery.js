@@ -22,8 +22,18 @@ export default function Welcome(props) {
     }
   }
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     console.log(selectedItems)
+    await MediaLibrary.deleteAssetsAsync(selectedItems)
+    setSelectedItems([])
+    let temp = numCol
+    setNumCol(temp + 1)
+    setNumCol(temp)
+  }
+
+  const handleImgView = (uri, id) => {
+    console.log("chosen pic: ", id);
+    props.navigation.navigate("imgview", {id: id, uri: uri, refresh: getAssets})
   }
 
   const getAssets = async () => {
@@ -68,14 +78,15 @@ export default function Welcome(props) {
       console.log("LOGGGING TEMP: ", temp2)
       setSelectedItems(temp2)
     }
-    setNumCol(2)
-    setNumCol(3)
+    let temp = numCol
+    setNumCol(temp + 1)
+    setNumCol(temp)
     console.log("SELECTED ITEMS: ", selectedItems)
   }
 
   useEffect(() => {
     getAssets()
-  }, [])
+  }, [numCol])
 
   return (
     <View style={styles.container}>
@@ -86,7 +97,7 @@ export default function Welcome(props) {
       </View>
       <FlatList
         data={assets}
-        renderItem={({ item }) => <GalleryItem assets={item} cols={numCol} selectImg={selectImg} selected={selectedItems} />}
+        renderItem={({ item }) => <GalleryItem assets={item} cols={numCol} selectImg={selectImg} selected={selectedItems} imgView={handleImgView}/>}
         numColumns={numCol}
         key={numCol}
       />

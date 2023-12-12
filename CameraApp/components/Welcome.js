@@ -28,7 +28,7 @@ export default function Welcome(props) {
         <View style={styles.container} onLayout={onLayoutRootView}>
             <TouchableOpacity onPress={() => { props.navigation.navigate("gallery") }} >
                 <Text style={{ fontFamily: 'Inter-Black', fontSize: 30 }}>CAMERA APP</Text>
-                <Text style={{ fontSize: 30 }}>My gallery app</Text>
+                <Text style={{ fontSize: 30 }}>My camera app</Text>
 
             </TouchableOpacity>
         </View>

@@ -15,7 +15,7 @@ export default function GalleryItem (props) {
       </TouchableOpacity>
       )
     : (
-      <TouchableOpacity style={styles.container2} delayLongPress={300} onLongPress={() => { props.selectImg(assets.id) }}>
+      <TouchableOpacity style={styles.container2} delayLongPress={300} onLongPress={() => { props.selectImg(assets.id) }} onPress={() => {props.imgView(assets.uri, assets.id)}}>
         <Image height={width / props.cols} width={width / props.cols} source={{ uri: assets.uri }} />
         {/* <Text>BANG BANG</Text> */}
       </TouchableOpacity>
