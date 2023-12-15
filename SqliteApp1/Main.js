@@ -11,13 +11,14 @@ import * as Database from './Database'
 import Budzik from './Budzik'
 import MyButton from './MyButton'
 
-export default function Welcome (props) {
-  const [alarms, SetAlarms] = useState([])
+export default function Welcome(props) {
+  const [alarms, setAlarms] = useState([])
   const [isReady, setIsReady] = useState(false)
 
-  // useEffect(() => {
-  //   renderAlarms(alarms)
-  // }, [alarms])
+  useEffect(() => {
+    getAlarms()
+    renderAlarms(alarms)
+  }, [])
 
   const renderAlarms = tab => {
     let itemlist = []
@@ -28,6 +29,8 @@ export default function Welcome (props) {
           id={el.id}
           isSelected={el.isSelected}
           selectedDays={el.selectedDays}
+          rmAlarm={rmAlarm}
+          mvAlarm={mvAlarm}
           time={el.time}
         />
       )
@@ -49,7 +52,7 @@ export default function Welcome (props) {
         })
         setIsReady(true)
         console.log('ADDING THIS: ', alarmsTemp)
-        SetAlarms(alarmsTemp)
+        setAlarms(alarmsTemp)
       })
       .catch(e => {
         console.log('ERROR LOG: ', e)
@@ -65,6 +68,19 @@ export default function Welcome (props) {
     Database.add(JSON.stringify(newAlarm))
     console.log('SHOULD ADDED ALARM')
     getAlarms()
+  }
+
+  const rmAlarm = (id) => {
+    let tempAlarms = alarms.filter((e) => e.id !== id)
+    console.log("tempAlarms: ", tempAlarms)
+    setAlarms(tempAlarms)
+    Database.remove(id)
+  }
+
+  const mvAlarm = (id, days) => {
+    let temp = alarms.find(el => el.id === id)
+    console.log("FIND: ", temp);
+    console.log("DAYS: ", days);
   }
 
   return (
